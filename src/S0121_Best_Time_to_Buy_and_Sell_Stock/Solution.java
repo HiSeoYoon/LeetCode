@@ -3,7 +3,7 @@ package S0121_Best_Time_to_Buy_and_Sell_Stock;
 public class Solution {
     public static void main(String[] args) {
         int[] input = {7, 1, 5, 3, 6, 4};
-        int output = maxProfit(input);
+        int output = maxProfit3(input);
         System.out.println(output);
     }
 
@@ -26,5 +26,29 @@ public class Solution {
         }
 
         return 0;
+    }
+
+    public static int maxProfit2(int prices[]) {
+        int maxprofit = 0;
+        for (int i = 0; i < prices.length - 1; i++) {
+            for (int j = i + 1; j < prices.length; j++) {
+                int profit = prices[j] - prices[i];
+                if (profit > maxprofit)
+                    maxprofit = profit;
+            }
+        }
+        return maxprofit;
+    }
+
+    public static int maxProfit3(int prices[]) {
+        int minprice = Integer.MAX_VALUE;
+        int maxprofit = 0;
+        for (int i = 0; i < prices.length; i++) {
+            if (prices[i] < minprice)
+                minprice = prices[i];
+            else if (prices[i] - minprice > maxprofit)
+                maxprofit = prices[i] - minprice;
+        }
+        return maxprofit;
     }
 }
