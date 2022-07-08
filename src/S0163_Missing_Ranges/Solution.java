@@ -1,0 +1,33 @@
+package S0163_Missing_Ranges;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Solution {
+    public static void main(String[] args) {
+        int[] input = {0, 1, 3, 50, 75};
+        List<String> output = findMissingRanges(input, 0, 99);
+        System.out.println(output);
+    }
+
+    public static List<String> findMissingRanges(int[] nums, int lower, int upper) {
+        List<String> result = new ArrayList<>();
+        int prev = lower - 1;
+        for (int i = 0; i <= nums.length; i++) {
+            int curr = (i < nums.length) ? nums[i] : upper + 1;
+            if (prev + 1 <= curr - 1) {
+                result.add(formatRange(prev + 1, curr - 1));
+            }
+            prev = curr;
+        }
+        return result;
+    }
+
+    // formats range in the requested format
+    private static String formatRange(int lower, int upper) {
+        if (lower == upper) {
+            return String.valueOf(lower);
+        }
+        return lower + "->" + upper;
+    }
+}
